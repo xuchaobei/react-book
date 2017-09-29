@@ -1,0 +1,44 @@
+.topic {
+  width: 900px;
+  min-height: 900px;
+  box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.1), 0 1px rgba(0,0,0,0.1);
+  margin: 10px auto;
+  padding: 20px 20px;
+}
+
+.topic .mark {
+  color: grey;
+  margin-bottom: 20px; 
+}
+
+.topic .mark span {
+  margin-right: 5px;
+}
+
+.topic .mark .author {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #009a61;
+}
+
+.topic .content {
+  color: grey;
+  margin-bottom: 20px;
+}
+
+.topic .vote {
+  height: 30px; 
+  margin-bottom: 20px; 
+}
+
+.topic .vote span{
+  vertical-align: middle;
+  display: table-cell;
+  width: 30px;
+  height: 30px;
+}
+
+.topic .vote img{
+  height: 30px; 
+  width: 30px;
+}
