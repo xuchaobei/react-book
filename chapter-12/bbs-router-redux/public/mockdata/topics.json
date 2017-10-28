@@ -1,0 +1,20 @@
+[
+  {
+    "title": "大家一起来讨论React吧",
+    "author": "张三",
+    "vote": 8,
+    "content": "前端UI的复杂化，其本质问题是如何将来源于服务器端的动态数据和用户的交互行为高效的反映到复杂的用户界面上。React另辟蹊径，通过引入虚拟DOM、状态、单向数据流等设计理念，形成以组件为核心，用组件搭建UI的开发模式，理顺了UI的开发过程，完美的将数据、组件状态和UI映射到一起，极大地提高了开发大型Web应用的效率。"
+  },
+  {
+    "title": "前端框架，你最爱哪一个",
+    "author": "李四",
+    "vote": 2,
+    "content": "React、Angular、Vue三足鼎立，各有千秋，哪一个最受前端开发者的青睐？相信每个开发者心中都有自己的评判标准。"
+  },
+  {
+    "title": "Web App的时代已经到来",
+    "author": "王五",
+    "vote": 10,
+    "content": "随着PWA等技术的到来，在Native App和Hybrid App之外，有多了一个选择：Web App。不少激进的开发者已经预言，Web App将战胜Native App和Hybrid App，Web App的时代已经到来！"
+  }
+]

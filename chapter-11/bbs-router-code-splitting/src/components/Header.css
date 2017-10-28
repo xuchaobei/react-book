@@ -1,0 +1,41 @@
+.header {
+  height: 50px;
+  border-top: 3px solid #009a61;
+  box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.1), 0 1px rgba(0,0,0,0.1);
+  background: #fafafa;
+}
+
+.header .nav {
+  position: relative;
+  width: 900px;
+  margin: 0 auto;
+}
+
+.header a {
+  color: grey;
+  text-decoration: none;
+  line-height: 50px;
+}
+
+.header span {
+  line-height: 50px;
+}
+
+.header .left-link {
+  position: absolute;
+  left: 0px;
+}
+
+.header .right-link {
+  position: absolute;
+  right: 20px;  
+}
+
+.header .user {
+  position: absolute;
+  right: 20px;  
+}
+
+.header button:hover {
+  cursor: pointer; 
+}
