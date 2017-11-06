@@ -59,7 +59,8 @@ const createRemarkSuccess = (topicId, remark) => ({
 });
 
 const shouldFetchRemarks = (topicId, state) => {
-  return !state.remarks.byTopic[topicId];
+  const remarkIds = state.getIn(["remarks", "byTopic", topicId]);
+  return !remarkIds;
 };
 
 const convertToPlainStructure = remarks => {
@@ -84,12 +85,9 @@ const convertToPlainStructure = remarks => {
 const byTopic = (state = Immutable.fromJS({}), action) => {
   switch (action.type) {
     case types.FETCH_REMARKS:
-      return { ...state, [action.topicId]: action.remarkIds };
+      return state.merge({[action.topicId]: action.remarkIds});
     case types.CREATE_REMARK:
-      return {
-        ...state,
-        [action.topicId]: [action.remark.id, ...state[action.topicId]]
-      };
+      return state.set(action.topicId, state.get(action.topicId).unshift(action.remark.id));
     default:
       return state;
   }
@@ -98,9 +96,9 @@ const byTopic = (state = Immutable.fromJS({}), action) => {
 const byId = (state = Immutable.fromJS({}), action) => {
   switch (action.type) {
     case types.FETCH_REMARKS:
-      return { ...state, ...action.remarks };
+      return  state.merge(action.remarks);
     case types.CREATE_REMARK:
-      return { ...state, [action.remark.id]: action.remark };
+      return state.set(action.remark.id, action.remark);
     default:
       return state;
   }
@@ -115,11 +113,11 @@ export default reducer;
 
 // selectors
 export const getRemarksByTopic = (state, topicId) => {
-  const remarkIds = state.remarks.byTopic[topicId];
+  const remarkIds = state.getIn(["remarks","byTopic", topicId]);
   if (remarkIds) {
     return remarkIds.map(id => {
       const userId = state.remarks.byId[id].author;
-      return { ...state.remarks.byId[id], author: getUserById(state, userId) };
+      return { ...state.getIn(["remarks","byId", id]), author: getUserById(state, userId) };
     });
   } else {
     return [];

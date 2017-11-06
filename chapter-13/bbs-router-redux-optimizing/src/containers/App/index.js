@@ -5,17 +5,21 @@ import { connect } from "react-redux";
 import asyncComponent from "../../utils/AsyncComponent";
 import ModalDialog from "../../components/ModalDialog";
 import Loading from "../../components/Loading";
-import { actions as appActions } from "../../redux/modules/app";
+import {
+  actions as appActions,
+  getError,
+  getRequestQuantity
+} from "../../redux/modules/app";
 
 const AsyncHome = asyncComponent(() => import("../Home"));
 const AsyncLogin = asyncComponent(() => import("../Login"));
 
 class App extends Component {
   render() {
-    const { app } = this.props;
-    const errorDialog = app.error && (
+    const { error, requestQuantity } = this.props;
+    const errorDialog = error && (
       <ModalDialog onClose={this.props.removeError}>
-        {app.error.message || app.error}
+        {error.get("message") || error}
       </ModalDialog>
     );
 
@@ -29,7 +33,7 @@ class App extends Component {
           </Switch>
         </Router>
         {errorDialog}
-        {app.requestQuantity > 0 && <Loading />}
+        {requestQuantity > 0 && <Loading />}
       </div>
     );
   }
@@ -37,7 +41,8 @@ class App extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    app: state.app
+    error: getError(state),
+    requestQuantity: getRequestQuantity(state)
   };
 };
 

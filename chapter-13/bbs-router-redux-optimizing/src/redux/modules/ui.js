@@ -34,15 +34,15 @@ export const actions = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.OPEN_ADD_DIALOG:
-      return { ...state, addDialogOpen: true };
+      return state.set('addDialogOpen', true);
     case types.CLOSE_ADD_DIALOG:
     case topicTypes.CREATE_TOPIC:
-      return { ...state, addDialogOpen: false };
+      return state.set('addDialogOpen', false);
     case types.OPEN_EDIT_DIALOG:
-      return { ...state, editDialogOpen: true };
+      return state.set('editDialogOpen', true);
     case types.CLOSE_EDIT_DIALOG:
     case topicTypes.UPDATE_TOPIC:
-      return { ...state, editDialogOpen: false };
+      return state.set('editDialogOpen', false);
     default:
       return state;
   }
@@ -52,9 +52,9 @@ export default reducer;
 
 // selectors
 export const isAddDialogOpen = state => {
-  return state.ui.addDialogOpen;
+  return state.getIn(["ui","addDialogOpen"]);
 };
 
 export const isEditDialogOpen = state => {
-  return state.ui.editDialogOpen;
+  return state.getIn(["ui","editDialogOpen"]);
 };

@@ -107,7 +107,8 @@ const updateTopicSuccess = topic => ({
 });
 
 const shouldFetchAllTopics = state => {
-  return !state.topics.allIds || state.topics.allIds.length === 0;
+  const allIds = state.getIn(["topics", "allIds"]);
+  return !allIds || allIds.length === 0;
 };
 
 const shouldFetchTopic = (id, state) => {
@@ -115,7 +116,8 @@ const shouldFetchTopic = (id, state) => {
    * state中如果已经存在该topic对象，且有content字段，
    * 则表明state中已经有该topic的完整信息，无需再次发送请求 
   **/
-  return !state.topics.byId[id] || !state.topics.byId[id].content;
+  const topic = state.getIn(["topics", "byId", id]);
+  return !topic || !topic.get("content");
 };
 
 const convertTopicsToPlain = topics => {
@@ -149,9 +151,9 @@ const convertSingleTopicToPlain = topic => {
 const allIds = (state = Immutable.fromJS([]), action) => {
   switch (action.type) {
     case types.FETCH_ALL_TOPICS:
-      return action.topicIds;
+      return state.clear().push(action.topicIds);
     case types.CREATE_TOPIC:
-      return [action.topic.id, ...state];
+      return state.unshift(action.topic.id);
     default:
       return state;
   }
@@ -164,10 +166,7 @@ const byId = (state = Immutable.fromJS({}), action) => {
     case types.FETCH_TOPIC:
     case types.CREATE_TOPIC:
     case types.UPDATE_TOPIC:
-      return {
-        ...state,
-        [action.topic.id]: action.topic
-      };
+      return state.merge(action.topic.id, action.topic);
     default:
       return state;
   }
@@ -182,13 +181,14 @@ export default reducer;
 
 // selectors
 export const getTopicList = state => {
-  return state.topics.allIds.map(id => {
-    const topic = state.topics.byId[id];
+  const allIds = state.getIn(["topics", "allIds"]);
+  return allIds.map(id => {
+    const topic = state.getIn(["topics", "byIds", id]);
     return { ...topic, author: getUserById(state, topic.author) };
   });
 };
 
 export const getTopicById = (state, id) => {
-  const topic = state.topics.byId[id];
+  const topic = state.getIn(["topics", "byIds", id]);
   return topic ? { ...topic, author: getUserById(state, topic.author) } : null;
 };

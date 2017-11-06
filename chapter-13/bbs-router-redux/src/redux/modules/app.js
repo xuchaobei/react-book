@@ -50,3 +50,7 @@ export default reducer;
 export const getError = state => {
   return state.app.error;
 };
+
+export const getRequestQuantity = state => {
+  return state.app.requestQuantity;
+};

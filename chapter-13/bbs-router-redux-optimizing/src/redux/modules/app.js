@@ -34,13 +34,13 @@ export const actions = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.START_REQUEST:
-      return { ...state, requestQuantity: state.requestQuantity + 1 };
+      return state.merge({ requestQuantity: state.get("requestQuantity") + 1 });
     case types.FINISH_REQUEST:
-      return { ...state, requestQuantity: state.requestQuantity - 1 };
+      return state.merge({ requestQuantity: state.get("requestQuantity") - 1 });
     case types.SET_ERROR:
-      return { ...state, error: action.error };
+      return state.merge({ error: action.error });
     case types.REMOVE_ERROR:
-      return { ...state, error: null };
+      return state.merge({ error: null });
     default:
       return state;
   }
@@ -50,5 +50,9 @@ export default reducer;
 
 // selectors
 export const getError = state => {
-  return state.app.error;
+  return state.getIn(["app", "error"]);
+};
+
+export const getRequestQuantity = state => {
+  return state.getIn(["app", "requestQuantity"]);
 };

@@ -22,7 +22,3 @@ export default reducer;
 export const getUserById = (state, id) => {
   return state.users[id];
 };
-
-export const getAllUsers = state => {
-  return state.users;
-};
