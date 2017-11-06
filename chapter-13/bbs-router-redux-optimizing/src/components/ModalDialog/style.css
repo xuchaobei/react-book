@@ -1,0 +1,30 @@
+.modalDialog {
+  display: table;
+  box-sizing: border-box;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 260px;
+  height: 100px;
+  margin-left: -130px;
+  margin-top: -50px;
+  padding: 10px;
+  background-color: #fff;
+  outline: 9999px solid rgba(0, 0, 0, 0.5);
+}
+
+.modalDialog .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: red;
+  cursor: pointer;
+}
+
+.modalDialog .message {
+  display: table-cell;
+  padding: 10px 15px;
+  text-align: center;
+  vertical-align:middle;
+  text-overflow: ellipsis;
+}
