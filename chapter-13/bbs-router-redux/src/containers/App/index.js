@@ -37,9 +37,8 @@ class App extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    // error: getError(state),
-    // requestQuantity: getRequestQuantity(state)
-    app: state.app
+    error: getError(state),
+    requestQuantity: getRequestQuantity(state)
   };
 };
 
