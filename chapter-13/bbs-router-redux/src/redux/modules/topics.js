@@ -2,7 +2,6 @@ import { combineReducers } from "redux";
 import { get, put, post } from "../../utils/request";
 import url from "../../utils/url";
 import { actions as appActions } from "./app";
-import { getUserById } from "./users";
 
 const initialState = {
   byId: {},
@@ -185,14 +184,8 @@ const reducer = combineReducers({
 export default reducer;
 
 // selectors
-export const getTopicList = state => {
-  return state.topics.allIds.map(id => {
-    const topic = state.topics.byId[id];
-    return { ...topic, author: getUserById(state, topic.author) };
-  });
-};
+export const getTopicIds = state => state.topics.allIds;
 
-export const getTopicById = (state, id) => {
-  const topic = state.topics.byId[id];
-  return topic ? { ...topic, author: getUserById(state, topic.author) } : null;
-};
+export const getTopicList = state => state.topics.byId;
+
+export const getTopicById = (state, id) => state.topics.byId[id];

@@ -1,5 +1,4 @@
 import Immutable from "immutable";
-import { createSelector } from "reselect";
 import { post } from "../../utils/request";
 import url from "../../utils/url";
 import { actions as appActions } from "./app";

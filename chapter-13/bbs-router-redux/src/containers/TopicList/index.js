@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import TopicItem from "./components/TopicItem";
 import TopicEditor from "../Topic/components/TopicEditor";
 import { getLoggedUser } from "../../redux/modules/auth";
-import { actions as topicActions, getTopicList } from "../../redux/modules/topics";
+import { actions as topicActions } from "../../redux/modules/topics";
 import { actions as uiActions, isAddDialogOpen } from "../../redux/modules/ui";
+import { getTopicListWithAuthors } from "../../redux/modules";
 import "./style.css";
 
 class TopicList extends Component {
@@ -54,7 +55,7 @@ class TopicList extends Component {
 const mapStateToProps = (state, props) => {
   return {
     user: getLoggedUser(state),
-    topics: getTopicList(state),
+    topics: getTopicListWithAuthors(state),
     isAddDialogOpen: isAddDialogOpen(state)
   };
 };

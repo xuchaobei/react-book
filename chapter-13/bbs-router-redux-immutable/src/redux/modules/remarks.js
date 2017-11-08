@@ -3,7 +3,6 @@ import { combineReducers } from "redux-immutable";
 import { get, post } from "../../utils/request";
 import url from "../../utils/url";
 import { actions as appActions } from "./app";
-import { getUserById } from "./users";
 
 // action types
 export const types = {
@@ -85,9 +84,12 @@ const convertToPlainStructure = remarks => {
 const byTopic = (state = Immutable.fromJS({}), action) => {
   switch (action.type) {
     case types.FETCH_REMARKS:
-      return state.merge({[action.topicId]: action.remarkIds});
+      return state.merge({ [action.topicId]: action.remarkIds });
     case types.CREATE_REMARK:
-      return state.set(action.topicId, state.get(action.topicId).unshift(action.remark.id));
+      return state.set(
+        action.topicId,
+        state.get(action.topicId).unshift(action.remark.id)
+      );
     default:
       return state;
   }
@@ -96,9 +98,9 @@ const byTopic = (state = Immutable.fromJS({}), action) => {
 const byId = (state = Immutable.fromJS({}), action) => {
   switch (action.type) {
     case types.FETCH_REMARKS:
-      return  state.merge(action.remarks);
+      return state.merge(action.remarks);
     case types.CREATE_REMARK:
-      return state.merge({[action.remark.id]: action.remark});
+      return state.merge({ [action.remark.id]: action.remark });
     default:
       return state;
   }
@@ -112,14 +114,10 @@ const reducer = combineReducers({
 export default reducer;
 
 // selectors
-export const getRemarksByTopic = (state, topicId) => {
-  const remarkIds = state.getIn(["remarks","byTopic", topicId]);
-  if (remarkIds) {
-    return remarkIds.map(id => {
-      let remark = state.getIn(["remarks","byId", id]);
-      return remark.merge({ author: getUserById(state, remark.get("author"))} )
-    });
-  } else {
-    return Immutable.List();
-  }
-};
+export const getRemarkIdsByTopic = (state, topicId) =>
+  state.getIn(["remarks", "byTopic", topicId]);
+
+export const getRemarks = state => state.getIn(["remarks", "byId"]);
+
+export const getRemarkById = (state, id) =>
+  state.getIn(["remarks", "byId", id]);

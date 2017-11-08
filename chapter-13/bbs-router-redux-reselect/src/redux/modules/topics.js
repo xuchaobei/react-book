@@ -3,7 +3,6 @@ import { combineReducers } from "redux-immutable";
 import { get, put, post } from "../../utils/request";
 import url from "../../utils/url";
 import { actions as appActions } from "./app";
-import { getUserById } from "./users";
 
 // action types
 export const types = {
@@ -180,17 +179,9 @@ const reducer = combineReducers({
 export default reducer;
 
 // selectors
-export const getTopicList = state => {
-  const allIds = state.getIn(["topics", "allIds"]);
-  return allIds.map(id => {
-    let topic = state.getIn(["topics", "byId", id]);
-    return topic.merge({ author: getUserById(state, topic.get("author")) });
-  });
-};
+export const getTopicIds = state => state.getIn(["topics", "allIds"]);
 
-export const getTopicById = (state, id) => {
-  let topic  = state.getIn(["topics", "byId", id]);
-  return topic
-    ? topic.merge({ author: getUserById(state, topic.get("author")) })
-    : null;
-};
+export const getTopicList = state => state.getIn(["topics", "byId"]);
+
+export const getTopicById = (state, id) => state.getIn(["topics", "byId", id]);
+

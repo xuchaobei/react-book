@@ -5,9 +5,10 @@ import TopicEditor from "./components/TopicEditor";
 import TopicViewer from "./components/TopicViewer";
 import RemarkList from "./components/RemarkList";
 import { getLoggedUser } from "../../redux/modules/auth";
-import { actions as topicActions, getTopicById } from "../../redux/modules/topics";
-import { actions as remarkActions, getRemarksByTopic } from "../../redux/modules/remarks";
+import { actions as topicActions } from "../../redux/modules/topics";
+import { actions as remarkActions } from "../../redux/modules/remarks";
 import { actions as uiActions, isEditDialogOpen } from "../../redux/modules/ui";
+import { getTopicDetail, getRemarksWithAuthors } from "../../redux/modules";
 import "./style.css";
 
 class Topic extends Component {
@@ -76,8 +77,8 @@ class Topic extends Component {
 const mapStateToProps = (state, props) => {
   return {
     user: getLoggedUser(state),
-    topic: getTopicById(state, props.match.params.id),
-    remarks: getRemarksByTopic(state, props.match.params.id),
+    topic: getTopicDetail(state, props.match.params.id),
+    remarks: getRemarksWithAuthors(state, props.match.params.id),
     isEditDialogOpen: isEditDialogOpen(state)
   };
 }

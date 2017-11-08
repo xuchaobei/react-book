@@ -2,7 +2,6 @@ import { combineReducers } from "redux";
 import { get, post } from "../../utils/request";
 import url from "../../utils/url";
 import { actions as appActions } from "./app";
-import { getUserById } from "./users";
 
 const initialState = {
   byTopic: {},
@@ -118,14 +117,9 @@ const reducer = combineReducers({
 export default reducer;
 
 // selectors
-export const getRemarksByTopic = (state, topicId) => {
-  const remarkIds = state.remarks.byTopic[topicId];
-  if (remarkIds) {
-    return remarkIds.map(id => {
-      const userId = state.remarks.byId[id].author;
-      return { ...state.remarks.byId[id], author: getUserById(state, userId) };
-    });
-  } else {
-    return [];
-  }
-};
+export const getRemarkIdsByTopic = (state, topicId) =>
+  state.remarks.byTopic[topicId];
+
+export const getRemarks = state => state.remarks.byId;
+
+export const getRemarkById = (state, id) => state.remarks.byId[id];

@@ -23,3 +23,7 @@ export default reducer;
 export const getUserById = (state, id) => {
   return state.getIn(["users", id]);
 };
+
+export const getUsers = (state) => {
+  return state.get("users");
+};
