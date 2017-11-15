@@ -1,5 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import TopicList from "./TopicList";
+import PostList from "./PostList";
 
-ReactDOM.render(<TopicList />, document.getElementById("root"));
+ReactDOM.render(<PostList />, document.getElementById("root"));
