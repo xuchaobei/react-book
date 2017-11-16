@@ -3,14 +3,13 @@ import { observable, computed, action } from "mobx";
 class TodoStore {
   @observable todos = [];
 
-  @computed
-  get unfinishedTodoCount() {
+  @computed get unfinishedTodoCount() {
     return this.todos.filter(todo => !todo.finished).length;
   }
  
-  @action
-  addTodo(data) {
+  @action addTodo(data) {
     this.todos.push(new Todo(data));
+    // this.todos.push({id: });
   }
 }
 
@@ -23,8 +22,7 @@ class Todo {
     this.title = title;
   }
 
-  @action
-  toggle() {
+  @action toggle() {
     this.finished = !this.finished;
   }
 }
