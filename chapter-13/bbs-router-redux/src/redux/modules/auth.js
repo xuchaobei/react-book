@@ -54,6 +54,4 @@ const reducer = (state = initialState, action) => {
 export default reducer;
 
 // selectors
-export const getLoggedUser = state => ({
-  ...state.auth
-});
+export const getLoggedUser = state => state.auth;
