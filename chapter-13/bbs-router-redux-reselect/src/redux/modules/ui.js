@@ -1,5 +1,5 @@
 import Immutable from "immutable";
-import { types as topicTypes } from "./topics";
+import { types as postTypes } from "./posts";
 
 const initialState = Immutable.fromJS({
   addDialogOpen: false,
@@ -36,12 +36,12 @@ const reducer = (state = initialState, action) => {
     case types.OPEN_ADD_DIALOG:
       return state.set('addDialogOpen', true);
     case types.CLOSE_ADD_DIALOG:
-    case topicTypes.CREATE_TOPIC:
+    case postTypes.CREATE_TOPIC:
       return state.set('addDialogOpen', false);
     case types.OPEN_EDIT_DIALOG:
       return state.set('editDialogOpen', true);
     case types.CLOSE_EDIT_DIALOG:
-    case topicTypes.UPDATE_TOPIC:
+    case postTypes.UPDATE_TOPIC:
       return state.set('editDialogOpen', false);
     default:
       return state;

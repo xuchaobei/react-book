@@ -14,15 +14,15 @@ export const types = {
 
 // action creators
 export const actions = {
-  fetchAllTopics: () => {
+  fetchAllPosts: () => {
     return (dispatch, getState) => {
-      if (shouldFetchAllTopics(getState())) {
+      if (shouldFetchAllPosts(getState())) {
         dispatch(appActions.startRequest());
-        return get(url.getTopicList()).then(data => {
+        return get(url.getPostList()).then(data => {
           dispatch(appActions.finishRequest());
           if (!data.error) {
-            const { topics, topicsIds, authors } = convertTopicsToPlain(data);
-            dispatch(fetchAllTopicsSuccess(topics, topicsIds, authors));
+            const { posts, postsIds, authors } = convertPostsToPlain(data);
+            dispatch(fetchAllPostsSuccess(posts, postsIds, authors));
           } else {
             dispatch(appActions.setError(data.error));
           }
@@ -30,15 +30,15 @@ export const actions = {
       }
     };
   },
-  fetchTopic: id => {
+  fetchPost: id => {
     return (dispatch, getState) => {
-      if (shouldFetchTopic(id, getState())) {
+      if (shouldFetchPost(id, getState())) {
         dispatch(appActions.startRequest());
-        return get(url.getTopicById(id)).then(data => {
+        return get(url.getPostById(id)).then(data => {
           dispatch(appActions.finishRequest());
           if (!data.error && data.length === 1) {
-            const { topic, author } = convertSingleTopicToPlain(data[0]);
-            dispatch(fetchTopicSuccess(topic, author));
+            const { post, author } = convertSinglePostToPlain(data[0]);
+            dispatch(fetchPostSuccess(post, author));
           } else {
             dispatch(appActions.setError(data.error));
           }
@@ -46,34 +46,34 @@ export const actions = {
       }
     };
   },
-  createTopic: (title, content) => {
+  createPost: (title, content) => {
     return (dispatch, getState) => {
       const state = getState();
       const author = state.getIn(["auth", "userId"]);
-      const topic = {
+      const params = {
         author,
         title,
         content,
         vote: 0
       };
       dispatch(appActions.startRequest());
-      return post(url.createTopic(), topic).then(data => {
+      return post(url.createPost(), params).then(data => {
         dispatch(appActions.finishRequest());
         if (!data.error) {
-          dispatch(createTopicSuccess(data));
+          dispatch(createPostSuccess(data));
         } else {
           dispatch(appActions.setError(data.error));
         }
       });
     };
   },
-  updateTopic: (id, topic) => {
+  updatePost: (id, post) => {
     return dispatch => {
       dispatch(appActions.startRequest());
-      return put(url.updateTopic(id), topic).then(data => {
+      return put(url.updatePost(id), post).then(data => {
         dispatch(appActions.finishRequest());
         if (!data.error) {
-          dispatch(updateTopicSuccess(data));
+          dispatch(updatePostSuccess(data));
         } else {
           dispatch(appActions.setError(data.error));
         }
@@ -82,66 +82,66 @@ export const actions = {
   }
 };
 
-const fetchAllTopicsSuccess = (topics, topicIds, authors) => ({
+const fetchAllPostsSuccess = (posts, postIds, authors) => ({
   type: types.FETCH_ALL_TOPICS,
-  topics,
-  topicIds,
+  posts,
+  postIds,
   users: authors
 });
 
-const fetchTopicSuccess = (topic, author) => ({
+const fetchPostSuccess = (post, author) => ({
   type: types.FETCH_TOPIC,
-  topic,
+  post,
   user: author
 });
 
-const createTopicSuccess = topic => ({
+const createPostSuccess = post => ({
   type: types.CREATE_TOPIC,
-  topic: topic
+  post: post
 });
 
-const updateTopicSuccess = topic => ({
+const updatePostSuccess = post => ({
   type: types.UPDATE_TOPIC,
-  topic: topic
+  post: post
 });
 
-const shouldFetchAllTopics = state => {
-  const allIds = state.getIn(["topics", "allIds"]);
+const shouldFetchAllPosts = state => {
+  const allIds = state.getIn(["posts", "allIds"]);
   return !allIds || allIds.size === 0;
 };
 
-const shouldFetchTopic = (id, state) => {
+const shouldFetchPost = (id, state) => {
   /** 
-   * state中如果已经存在该topic对象，且有content字段，
-   * 则表明state中已经有该topic的完整信息，无需再次发送请求 
+   * state中如果已经存在该post对象，且有content字段，
+   * 则表明state中已经有该post的完整信息，无需再次发送请求 
   **/
-  const topic = state.getIn(["topics", "byId", id]);
-  return !topic || !topic.get("content");
+  const post = state.getIn(["posts", "byId", id]);
+  return !post || !post.get("content");
 };
 
-const convertTopicsToPlain = topics => {
-  let topicsById = {};
-  let topicsIds = [];
+const convertPostsToPlain = posts => {
+  let postsById = {};
+  let postsIds = [];
   let authorsById = {};
-  topics.forEach(item => {
-    topicsById[item.id] = { ...item, author: item.author.id };
-    topicsIds.push(item.id);
+  posts.forEach(item => {
+    postsById[item.id] = { ...item, author: item.author.id };
+    postsIds.push(item.id);
     if (!authorsById[item.author.id]) {
       authorsById[item.author.id] = item.author;
     }
   });
   return {
-    topics: topicsById,
-    topicsIds,
+    posts: postsById,
+    postsIds,
     authors: authorsById
   };
 };
 
-const convertSingleTopicToPlain = topic => {
-  const plainTopic = { ...topic, author: topic.author.id };
-  const author = { ...topic.author };
+const convertSinglePostToPlain = post => {
+  const plainPost = { ...post, author: post.author.id };
+  const author = { ...post.author };
   return {
-    topic: plainTopic,
+    post: plainPost,
     author
   };
 };
@@ -150,9 +150,9 @@ const convertSingleTopicToPlain = topic => {
 const allIds = (state = Immutable.fromJS([]), action) => {
   switch (action.type) {
     case types.FETCH_ALL_TOPICS:
-      return Immutable.List(action.topicIds);
+      return Immutable.List(action.postIds);
     case types.CREATE_TOPIC:
-      return state.unshift(action.topic.id);
+      return state.unshift(action.post.id);
     default:
       return state;
   }
@@ -161,11 +161,11 @@ const allIds = (state = Immutable.fromJS([]), action) => {
 const byId = (state = Immutable.fromJS({}), action) => {
   switch (action.type) {
     case types.FETCH_ALL_TOPICS:
-      return state.merge(action.topics);
+      return state.merge(action.posts);
     case types.FETCH_TOPIC:
     case types.CREATE_TOPIC:
     case types.UPDATE_TOPIC:
-      return state.merge({ [action.topic.id]: action.topic });
+      return state.merge({ [action.post.id]: action.post });
     default:
       return state;
   }
@@ -179,9 +179,9 @@ const reducer = combineReducers({
 export default reducer;
 
 // selectors
-export const getTopicIds = state => state.getIn(["topics", "allIds"]);
+export const getPostIds = state => state.getIn(["posts", "allIds"]);
 
-export const getTopicList = state => state.getIn(["topics", "byId"]);
+export const getPostList = state => state.getIn(["posts", "byId"]);
 
-export const getTopicById = (state, id) => state.getIn(["topics", "byId", id]);
+export const getPostById = (state, id) => state.getIn(["posts", "byId", id]);
 

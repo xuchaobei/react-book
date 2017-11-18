@@ -12,7 +12,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={AsyncHome} />
           <Route path="/login" component={AsyncLogin} />
-          <Route path="/topics" component={AsyncHome} />
+          <Route path="/posts" component={AsyncHome} />
         </Switch>
       </Router>
     );

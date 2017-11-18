@@ -1,4 +1,4 @@
-import { types as topicTypes } from "./topics";
+import { types as postTypes } from "./posts";
 
 const initialState = {
   addDialogOpen: false,
@@ -35,12 +35,12 @@ const reducer = (state = initialState, action) => {
     case types.OPEN_ADD_DIALOG:
       return { ...state, addDialogOpen: true };
     case types.CLOSE_ADD_DIALOG:
-    case topicTypes.CREATE_TOPIC:
+    case postTypes.CREATE_TOPIC:
       return { ...state, addDialogOpen: false };
     case types.OPEN_EDIT_DIALOG:
       return { ...state, editDialogOpen: true };
     case types.CLOSE_EDIT_DIALOG:
-    case topicTypes.UPDATE_TOPIC:
+    case postTypes.UPDATE_TOPIC:
       return { ...state, editDialogOpen: false };
     default:
       return state;

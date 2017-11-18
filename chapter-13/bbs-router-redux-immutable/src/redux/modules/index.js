@@ -3,43 +3,43 @@ import Immutable from "immutable";
 import app from "./app";
 import auth from "./auth";
 import ui from "./ui";
-import remarks, { getRemarkIdsByTopic, getRemarkById } from "./remarks";
-import topics, { getTopicIds, getTopicById } from "./topics";
+import comments, { getCommentIdsByPost, getCommentById } from "./comments";
+import posts, { getPostIds, getPostById } from "./posts";
 import users, { getUserById } from "./users";
 
 const rootReducer = combineReducers({
   app,
   auth,
   ui,
-  topics,
-  remarks,
+  posts,
+  comments,
   users
 });
 
 export default rootReducer;
 
 // complex selectors
-export const getTopicListWithAuthors = state => {
-  const allIds = getTopicIds(state);
+export const getPostListWithAuthors = state => {
+  const allIds = getPostIds(state);
   return allIds.map(id => {
-    const topic = getTopicById(state, id);
-    return topic.merge({ author: getUserById(state, topic.get("author")) });
+    const post = getPostById(state, id);
+    return post.merge({ author: getUserById(state, post.get("author")) });
   });
 };
 
-export const getTopicDetail = (state, id) => {
-  const topic = getTopicById(state, id);
-  return topic
-    ? topic.merge({ author: getUserById(state, topic.get("author")) })
+export const getPostDetail = (state, id) => {
+  const post = getPostById(state, id);
+  return post
+    ? post.merge({ author: getUserById(state, post.get("author")) })
     : null;
 };
 
-export const getRemarksWithAuthors = (state, topicId) => {
-  const remarkIds = getRemarkIdsByTopic(state, topicId);
-  if (remarkIds) {
-    return remarkIds.map(id => {
-      const remark = getRemarkById(state, id);
-      return remark.merge({ author: getUserById(state, remark.get("author")) });
+export const getCommentsWithAuthors = (state, postId) => {
+  const commentIds = getCommentIdsByPost(state, postId);
+  if (commentIds) {
+    return commentIds.map(id => {
+      const comment = getCommentById(state, id);
+      return comment.merge({ author: getUserById(state, comment.get("author")) });
     });
   } else {
     return Immutable.List();

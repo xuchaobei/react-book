@@ -2,42 +2,42 @@ import { combineReducers } from "redux";
 import app from "./app";
 import auth from "./auth";
 import ui from "./ui";
-import remarks, { getRemarkIdsByTopic, getRemarkById } from "./remarks";
-import topics, { getTopicIds, getTopicById } from "./topics";
+import comments, { getCommentIdsByPost, getCommentById } from "./comments";
+import posts, { getPostIds, getPostById } from "./posts";
 import users, { getUserById } from "./users";
 
 const rootReducer = combineReducers({
   app,
   auth,
   ui,
-  topics,
-  remarks,
+  posts,
+  comments,
   users
 });
 
 export default rootReducer;
 
 // complex selectors
-export const getTopicListWithAuthors = state => {
-  const topicIds = getTopicIds(state);
-  return topicIds.map(id => {
-    const topic = getTopicById(state, id);
-    return { ...topic, author: getUserById(state, topic.author) };
+export const getPostListWithAuthors = state => {
+  const postIds = getPostIds(state);
+  return postIds.map(id => {
+    const post = getPostById(state, id);
+    return { ...post, author: getUserById(state, post.author) };
   });
 };
 
 
-export const getTopicDetail = (state, id) => {
-  const topic = getTopicById(state, id);
-  return topic ? { ...topic, author: getUserById(state, topic.author) } : null;
+export const getPostDetail = (state, id) => {
+  const post = getPostById(state, id);
+  return post ? { ...post, author: getUserById(state, post.author) } : null;
 };
 
-export const getRemarksWithAuthors = (state, topicId) => {
-  const remarkIds = getRemarkIdsByTopic(state, topicId);
-  if (remarkIds) {
-    return remarkIds.map(id => {
-      const remark = getRemarkById(state, id);
-      return { ...remark, author: getUserById(state, remark.author) };
+export const getCommentsWithAuthors = (state, postId) => {
+  const commentIds = getCommentIdsByPost(state, postId);
+  if (commentIds) {
+    return commentIds.map(id => {
+      const comment = getCommentById(state, id);
+      return { ...comment, author: getUserById(state, comment.author) };
     });
   } else {
     return [];

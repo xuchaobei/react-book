@@ -6,8 +6,8 @@ import Header from "../../components/Header";
 import asyncComponent from "../../utils/AsyncComponent";
 import { actions as authActions, getLoggedUser } from "../../redux/modules/auth";
 
-const AsyncTopic = asyncComponent(() => import("../Topic"));
-const AsyncTopicList = asyncComponent(() => import("../TopicList"));
+const AsyncPost = asyncComponent(() => import("../Post"));
+const AsyncPostList = asyncComponent(() => import("../PostList"));
 
 class Home extends Component {
   constructor(props) {
@@ -56,11 +56,11 @@ class Home extends Component {
         <Route
           path={match.url}
           exact
-          render={props => <AsyncTopicList {...props} />}
+          render={props => <AsyncPostList {...props} />}
         />
         <Route
           path={`${match.url}/:id`}
-          render={props => <AsyncTopic {...props} />}
+          render={props => <AsyncPost {...props} />}
         />
       </div>
     );

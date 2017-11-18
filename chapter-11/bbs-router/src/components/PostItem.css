@@ -1,0 +1,36 @@
+.postItem {
+  border-top: 1px solid grey;
+  padding: 15px;
+  font-size: 14px;
+  color: grey;
+  line-height: 21px;
+}
+
+.postItem .title {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 24px;
+  color: #009a61;
+}
+
+.postItem .like {
+  width: 100%;
+  height: 20px;
+}
+
+.postItem .like img{
+  width: 20px;
+  height: 20px;
+}
+
+.postItem .like span{
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.postItem textarea {
+  width: 100%;
+}
+

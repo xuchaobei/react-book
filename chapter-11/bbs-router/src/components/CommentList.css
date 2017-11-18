@@ -1,0 +1,16 @@
+.commentList {
+  border-top: 1px inset grey;
+  padding-top: 20px; 
+  color: black;
+}
+
+.commentList .title {
+  text-align: center;
+  color: grey;
+  margin-bottom: 10px; 
+}
+
+.commentList textarea {
+  width: 100%;
+  height: 50px;
+}

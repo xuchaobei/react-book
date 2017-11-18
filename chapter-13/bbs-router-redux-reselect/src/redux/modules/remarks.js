@@ -12,15 +12,15 @@ export const types = {
 
 // action creators
 export const actions = {
-  fetchRemarks: topicId => {
+  fetchComments: postId => {
     return (dispatch, getState) => {
-      if (shouldFetchRemarks(topicId, getState())) {
+      if (shouldFetchComments(postId, getState())) {
         dispatch(appActions.startRequest());
-        return get(url.getRemarkList(topicId)).then(data => {
+        return get(url.getCommentList(postId)).then(data => {
           dispatch(appActions.finishRequest());
           if (!data.error) {
-            const { remarks, remarkIds, users } = convertToPlainStructure(data);
-            dispatch(fetchRemarksSuccess(topicId, remarkIds, remarks, users));
+            const { comments, commentIds, users } = convertToPlainStructure(data);
+            dispatch(fetchCommentsSuccess(postId, commentIds, comments, users));
           } else {
             dispatch(appActions.setError(data.error));
           }
@@ -28,13 +28,13 @@ export const actions = {
       }
     };
   },
-  createRemark: remark => {
+  createComment: comment => {
     return dispatch => {
       dispatch(appActions.startRequest());
-      return post(url.createRemark(), remark).then(data => {
+      return post(url.createComment(), comment).then(data => {
         dispatch(appActions.finishRequest());
         if (!data.error) {
-          dispatch(createRemarkSuccess(data.topic, data));
+          dispatch(createCommentSuccess(data.post, data));
         } else {
           dispatch(appActions.setError(data.error));
         }
@@ -43,52 +43,52 @@ export const actions = {
   }
 };
 
-const fetchRemarksSuccess = (topicId, remarkIds, remarks, users) => ({
+const fetchCommentsSuccess = (postId, commentIds, comments, users) => ({
   type: types.FETCH_REMARKS,
-  topicId,
-  remarkIds,
-  remarks,
+  postId,
+  commentIds,
+  comments,
   users
 });
 
-const createRemarkSuccess = (topicId, remark) => ({
+const createCommentSuccess = (postId, comment) => ({
   type: types.CREATE_REMARK,
-  topicId,
-  remark
+  postId,
+  comment
 });
 
-const shouldFetchRemarks = (topicId, state) => {
-  const remarkIds = state.getIn(["remarks", "byTopic", topicId]);
-  return !remarkIds;
+const shouldFetchComments = (postId, state) => {
+  const commentIds = state.getIn(["comments", "byPost", postId]);
+  return !commentIds;
 };
 
-const convertToPlainStructure = remarks => {
-  let remarksById = {};
-  let remarkIds = [];
+const convertToPlainStructure = comments => {
+  let commentsById = {};
+  let commentIds = [];
   let authorsById = {};
-  remarks.forEach(item => {
-    remarksById[item.id] = { ...item, author: item.author.id };
-    remarkIds.push(item.id);
+  comments.forEach(item => {
+    commentsById[item.id] = { ...item, author: item.author.id };
+    commentIds.push(item.id);
     if (!authorsById[item.author.id]) {
       authorsById[item.author.id] = item.author;
     }
   });
   return {
-    remarks: remarksById,
-    remarkIds,
+    comments: commentsById,
+    commentIds,
     users: authorsById
   };
 };
 
 // reducers
-const byTopic = (state = Immutable.fromJS({}), action) => {
+const byPost = (state = Immutable.fromJS({}), action) => {
   switch (action.type) {
     case types.FETCH_REMARKS:
-      return state.merge({ [action.topicId]: action.remarkIds });
+      return state.merge({ [action.postId]: action.commentIds });
     case types.CREATE_REMARK:
       return state.set(
-        action.topicId,
-        state.get(action.topicId).unshift(action.remark.id)
+        action.postId,
+        state.get(action.postId).unshift(action.comment.id)
       );
     default:
       return state;
@@ -98,24 +98,24 @@ const byTopic = (state = Immutable.fromJS({}), action) => {
 const byId = (state = Immutable.fromJS({}), action) => {
   switch (action.type) {
     case types.FETCH_REMARKS:
-      return state.merge(action.remarks);
+      return state.merge(action.comments);
     case types.CREATE_REMARK:
-      return state.merge({ [action.remark.id]: action.remark });
+      return state.merge({ [action.comment.id]: action.comment });
     default:
       return state;
   }
 };
 
 const reducer = combineReducers({
-  byTopic,
+  byPost,
   byId
 });
 
 export default reducer;
 
 // selectors
-export const getRemarkIdsByTopic = (state, topicId) =>
-  state.getIn(["remarks", "byTopic", topicId]);
+export const getCommentIdsByPost = (state, postId) =>
+  state.getIn(["comments", "byPost", postId]);
 
-export const getRemarks = state => state.getIn(["remarks", "byId"]);
+export const getComments = state => state.getIn(["comments", "byId"]);
 

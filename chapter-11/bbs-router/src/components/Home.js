@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-import TopicList from "./TopicList";
+import PostList from "./PostList";
 import Header from "./Header";
-import Topic from "./Topic";
+import Post from "./Post";
 
 class Home extends Component {
   constructor(props) {
@@ -37,11 +37,11 @@ class Home extends Component {
         <Route
           path={match.url}
           exact
-          render={props => <TopicList userId={userId} {...props} />}
+          render={props => <PostList userId={userId} {...props} />}
         />
         <Route
           path={`${match.url}/:id`}
-          render={props => <Topic userId={userId} {...props} />}
+          render={props => <Post userId={userId} {...props} />}
         />
       </div>
     );

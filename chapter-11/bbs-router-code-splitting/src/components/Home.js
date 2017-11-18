@@ -3,8 +3,8 @@ import { Route } from "react-router-dom";
 import Header from "./Header";
 import asyncComponent from "../AsyncComponent";
 
-const AsyncTopic = asyncComponent(() => import("./Topic"));
-const AsyncTopicList = asyncComponent(() => import("./TopicList"));
+const AsyncPost = asyncComponent(() => import("./Post"));
+const AsyncPostList = asyncComponent(() => import("./PostList"));
 
 class Home extends Component {
   constructor(props) {
@@ -39,11 +39,11 @@ class Home extends Component {
         <Route
           path={match.url}
           exact
-          render={props => <AsyncTopicList userId={userId} {...props} />}
+          render={props => <AsyncPostList userId={userId} {...props} />}
         />
         <Route
           path={`${match.url}/:id`}
-          render={props => <AsyncTopic userId={userId} {...props} />}
+          render={props => <AsyncPost userId={userId} {...props} />}
         />
       </div>
     );

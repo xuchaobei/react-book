@@ -4,49 +4,49 @@ import Immutable from "immutable";
 import app from "./app";
 import auth from "./auth";
 import ui from "./ui";
-import remarks, { getRemarkIdsByTopic, getRemarks } from "./remarks";
-import topics, { getTopicIds, getTopicList, getTopicById } from "./topics";
+import comments, { getCommentIdsByPost, getComments } from "./comments";
+import posts, { getPostIds, getPostList, getPostById } from "./posts";
 import users, { getUsers } from "./users";
 
 const rootReducer = combineReducers({
   app,
   auth,
   ui,
-  topics,
-  remarks,
+  posts,
+  comments,
   users
 });
 
 export default rootReducer;
 
 // complex selectors
-export const getTopicListWithAuthors = createSelector(
-  [getTopicIds, getTopicList, getUsers],
-  (allIds, topics, users) => {
+export const getPostListWithAuthors = createSelector(
+  [getPostIds, getPostList, getUsers],
+  (allIds, posts, users) => {
     return allIds.map(id => {
-      let topic = topics.get(id);
-      return topic.merge({ author: users.get(topic.get("author")) });
+      let post = posts.get(id);
+      return post.merge({ author: users.get(post.get("author")) });
     });
   }
 );
 
-export const getTopicDetail = createSelector(
-  [getTopicById, getUsers],
-  (topic, users) => {
-    return topic
-      ? topic.merge({ author: users.get(topic.get("author")) })
+export const getPostDetail = createSelector(
+  [getPostById, getUsers],
+  (post, users) => {
+    return post
+      ? post.merge({ author: users.get(post.get("author")) })
       : null;
   }
 );
 
-export const getRemarksWithAuthors = createSelector(
-  [getRemarkIdsByTopic, getRemarks, getUsers],
-  (remarkIds, remarks, users) => {
-    if (remarkIds) {
-      return remarkIds.map(id => {
-        let remark = remarks.get(id);
-        return remark.merge({
-          author: users.get(remark.get("author"))
+export const getCommentsWithAuthors = createSelector(
+  [getCommentIdsByPost, getComments, getUsers],
+  (commentIds, comments, users) => {
+    if (commentIds) {
+      return commentIds.map(id => {
+        let comment = comments.get(id);
+        return comment.merge({
+          author: users.get(comment.get("author"))
         });
       });
     } else {
