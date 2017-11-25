@@ -10,9 +10,10 @@ import {
   getError,
   getRequestQuantity
 } from "../../redux/modules/app";
+import connectRoute from "../../utils/connectRoute";
 
-const AsyncHome = asyncComponent(() => import("../Home"));
-const AsyncLogin = asyncComponent(() => import("../Login"));
+const AsyncHome = connectRoute(asyncComponent(() => import("../Home")));
+const AsyncLogin = connectRoute(asyncComponent(() => import("../Login")));
 
 class App extends Component {
   render() {

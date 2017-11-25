@@ -5,9 +5,10 @@ import { connect } from "react-redux";
 import Header from "../../components/Header";
 import asyncComponent from "../../utils/AsyncComponent";
 import { actions as authActions, getLoggedUser } from "../../redux/modules/auth";
+import connectRoute from "../../utils/connectRoute";
 
-const AsyncPost = asyncComponent(() => import("../Post"));
-const AsyncPostList = asyncComponent(() => import("../PostList"));
+const AsyncPost = connectRoute(asyncComponent(() => import("../Post")));
+const AsyncPostList = connectRoute(asyncComponent(() => import("../PostList")));
 
 class Home extends Component {
   constructor(props) {
