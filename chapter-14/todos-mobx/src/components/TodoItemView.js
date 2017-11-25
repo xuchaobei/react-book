@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { observer } from "mobx-react";
 
 @observer
-class TodoItem extends Component {
+class TodoItemView extends Component {
   handleClick = () => {
     this.props.todo.toggle();
   };
@@ -22,4 +22,4 @@ class TodoItem extends Component {
   }
 }
 
-export default TodoItem;
+export default TodoItemView;
