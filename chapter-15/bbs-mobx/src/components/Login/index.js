@@ -32,7 +32,6 @@ class Login extends Component {
       return <Redirect to={from} />;
     }
     const { username, password } = this.props.authStore;
-
     return (
       <form className="login" onSubmit={this.handleSubmit}>
         <div>

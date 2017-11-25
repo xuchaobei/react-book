@@ -17,8 +17,7 @@ class PostsStore {
     return this.posts.find(item => item.id === id);
   }
 
-  @action
-  fetchPostList() {
+  @action fetchPostList() {
     this.appStore.increaseRequest();
     return this.api.getPostList().then(
       action(data => {
@@ -35,8 +34,7 @@ class PostsStore {
     );
   }
 
-  @action
-  fetchPostDetail(id) {
+  @action fetchPostDetail(id) {
     this.appStore.increaseRequest();
     return this.api.getPostById(id).then(
       action(data => {
@@ -57,8 +55,7 @@ class PostsStore {
     );
   }
 
-  @action
-  createPost(post) {
+  @action createPost(post) {
     const content = { ...post, author: this.authStore.userId, vote: 0 };
     this.appStore.increaseRequest();
     return this.api.createPost(content).then(
@@ -75,8 +72,7 @@ class PostsStore {
     );
   }
 
-  @action
-  updatePost(id, post) {
+  @action updatePost(id, post) {
     this.appStore.increaseRequest();
     return this.api.updatePost(id, post).then(
       action(data => {

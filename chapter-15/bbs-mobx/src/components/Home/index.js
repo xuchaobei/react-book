@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import Header from "../../components/Header";
 import asyncComponent from "../../utils/AsyncComponent";
+import connectRoute from "../../utils/connectRoute";
 
-const AsyncPost = asyncComponent(() => import("../Post"));
-const AsyncPostList = asyncComponent(() => import("../PostList"));
+const AsyncPost = connectRoute(asyncComponent(() => import("../Post")));
+const AsyncPostList = connectRoute(asyncComponent(() => import("../PostList")));
 
 class Home extends Component {
   render() {
