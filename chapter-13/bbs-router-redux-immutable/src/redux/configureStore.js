@@ -3,11 +3,11 @@ import thunk from "redux-thunk";
 import rootReducer from "./modules";
 
 let finalCreateStore;
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== "production" && window.__REDUX_DEVTOOLS_EXTENSION__ ) {
   finalCreateStore = compose(
     applyMiddleware(thunk),
     // Required! Enable Redux DevTools with the monitors you chose
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    window.__REDUX_DEVTOOLS_EXTENSION__()
   )(createStore);
 } else {
   finalCreateStore = applyMiddleware(thunk)(createStore);
