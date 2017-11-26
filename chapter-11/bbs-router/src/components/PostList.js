@@ -60,7 +60,7 @@ class PostList extends Component {
     return (
       <div className="postList">
         <div>
-          <h2>话题列表</h2>
+          <h2>帖子列表</h2>
           {userId ? <button onClick={this.handleNewPost}>发帖</button> : null}
         </div>
         {this.state.newPost ? (
