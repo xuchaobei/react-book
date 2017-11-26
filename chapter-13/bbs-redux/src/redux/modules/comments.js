@@ -10,8 +10,8 @@ const initialState = {
 
 // action types
 export const types = {
-  FETCH_REMARKS: "REMARKS/FETCH_REMARKS",
-  CREATE_REMARK: "REMARKS/CREATE_REMARK"
+  FETCH_COMMENTS: "COMMENTS/FETCH_COMMENTS",
+  CREATE_COMMENT: "COMMENTS/CREATE_COMMENT"
 };
 
 // action creators
@@ -48,7 +48,7 @@ export const actions = {
 };
 
 const fetchCommentsSuccess = (postId, commentIds, comments, users) => ({
-  type: types.FETCH_REMARKS,
+  type: types.FETCH_COMMENTS,
   postId,
   commentIds,
   comments,
@@ -56,7 +56,7 @@ const fetchCommentsSuccess = (postId, commentIds, comments, users) => ({
 });
 
 const createCommentSuccess = (postId, comment) => ({
-  type: types.CREATE_REMARK,
+  type: types.CREATE_COMMENT,
   postId,
   comment
 });
@@ -86,9 +86,9 @@ const convertToPlainStructure = comments => {
 // reducers
 const byPost = (state = initialState.byPost, action) => {
   switch (action.type) {
-    case types.FETCH_REMARKS:
+    case types.FETCH_COMMENTS:
       return { ...state, [action.postId]: action.commentIds };
-    case types.CREATE_REMARK:
+    case types.CREATE_COMMENT:
       return {
         ...state,
         [action.postId]: [action.comment.id, ...state[action.postId]]
@@ -100,9 +100,9 @@ const byPost = (state = initialState.byPost, action) => {
 
 const byId = (state = initialState.byId, action) => {
   switch (action.type) {
-    case types.FETCH_REMARKS:
+    case types.FETCH_COMMENTS:
       return { ...state, ...action.comments };
-    case types.CREATE_REMARK:
+    case types.CREATE_COMMENT:
       return { ...state, [action.comment.id]: action.comment };
     default:
       return state;

@@ -10,10 +10,10 @@ const initialState = {
 
 // action types
 export const types = {
-  CREATE_TOPIC: "TOPICS/CREATE_TOPIC",
-  UPDATE_TOPIC: "TOPICS/UPDATE_TOPIC",
-  FETCH_ALL_TOPICS: "TOPICS/FETCH_ALL_TOPICS",
-  FETCH_TOPIC: "TOPICS/FETCH_TOPIC"
+  CREATE_POST: "POSTS/CREATE_POST",
+  UPDATE_POST: "POSTS/UPDATE_POST",
+  FETCH_ALL_POSTS: "POSTS/FETCH_ALL_POSTS",
+  FETCH_POST: "POSTS/FETCH_POST"
 };
 
 // action creators
@@ -87,25 +87,25 @@ export const actions = {
 };
 
 const fetchAllPostsSuccess = (posts, postIds, authors) => ({
-  type: types.FETCH_ALL_TOPICS,
+  type: types.FETCH_ALL_POSTS,
   posts,
   postIds,
   users: authors
 });
 
 const fetchPostSuccess = (post, author) => ({
-  type: types.FETCH_TOPIC,
+  type: types.FETCH_POST,
   post,
   user: author
 });
 
 const createPostSuccess = post => ({
-  type: types.CREATE_TOPIC,
+  type: types.CREATE_POST,
   post: post
 });
 
 const updatePostSuccess = post => ({
-  type: types.UPDATE_TOPIC,
+  type: types.UPDATE_POST,
   post: post
 });
 
@@ -151,9 +151,9 @@ const convertSinglePostToPlain = post => {
 // reducers
 const allIds = (state = initialState.allIds, action) => {
   switch (action.type) {
-    case types.FETCH_ALL_TOPICS:
+    case types.FETCH_ALL_POSTS:
       return action.postIds;
-    case types.CREATE_TOPIC:
+    case types.CREATE_POST:
       return [action.post.id, ...state];
     default:
       return state;
@@ -162,11 +162,11 @@ const allIds = (state = initialState.allIds, action) => {
 
 const byId = (state = initialState.byId, action) => {
   switch (action.type) {
-    case types.FETCH_ALL_TOPICS:
+    case types.FETCH_ALL_POSTS:
       return action.posts;
-    case types.FETCH_TOPIC:
-    case types.CREATE_TOPIC:
-    case types.UPDATE_TOPIC:
+    case types.FETCH_POST:
+    case types.CREATE_POST:
+    case types.UPDATE_POST:
       return {
         ...state,
         [action.post.id]: action.post

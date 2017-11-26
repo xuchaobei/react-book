@@ -35,12 +35,12 @@ const reducer = (state = initialState, action) => {
     case types.OPEN_ADD_DIALOG:
       return { ...state, addDialogOpen: true };
     case types.CLOSE_ADD_DIALOG:
-    case postTypes.CREATE_TOPIC:
+    case postTypes.CREATE_POST:
       return { ...state, addDialogOpen: false };
     case types.OPEN_EDIT_DIALOG:
       return { ...state, editDialogOpen: true };
     case types.CLOSE_EDIT_DIALOG:
-    case postTypes.UPDATE_TOPIC:
+    case postTypes.UPDATE_POST:
       return { ...state, editDialogOpen: false };
     default:
       return state;

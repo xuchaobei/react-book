@@ -6,10 +6,10 @@ const initialState = {};
 // reducers
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case commentTypes.FETCH_REMARKS:
-    case postTypes.FETCH_ALL_TOPICS:
+    case commentTypes.FETCH_COMMENTS:
+    case postTypes.FETCH_ALL_POSTS:
       return { ...state, ...action.users };
-    case postTypes.FETCH_TOPIC:
+    case postTypes.FETCH_POST:
       return { ...state, [action.user.id]: action.user };
     default:
       return state;

@@ -6,8 +6,8 @@ import { actions as appActions } from "./app";
 
 // action types
 export const types = {
-  FETCH_REMARKS: "REMARKS/FETCH_REMARKS",
-  CREATE_REMARK: "REMARKS/CREATE_REMARK"
+  FETCH_COMMENTS: "COMMENTS/FETCH_COMMENTS",
+  CREATE_COMMENT: "COMMENTS/CREATE_COMMENT"
 };
 
 // action creators
@@ -44,7 +44,7 @@ export const actions = {
 };
 
 const fetchCommentsSuccess = (postId, commentIds, comments, users) => ({
-  type: types.FETCH_REMARKS,
+  type: types.FETCH_COMMENTS,
   postId,
   commentIds,
   comments,
@@ -52,7 +52,7 @@ const fetchCommentsSuccess = (postId, commentIds, comments, users) => ({
 });
 
 const createCommentSuccess = (postId, comment) => ({
-  type: types.CREATE_REMARK,
+  type: types.CREATE_COMMENT,
   postId,
   comment
 });
@@ -83,9 +83,9 @@ const convertToPlainStructure = comments => {
 // reducers
 const byPost = (state = Immutable.fromJS({}), action) => {
   switch (action.type) {
-    case types.FETCH_REMARKS:
+    case types.FETCH_COMMENTS:
       return state.merge({ [action.postId]: action.commentIds });
-    case types.CREATE_REMARK:
+    case types.CREATE_COMMENT:
       return state.set(
         action.postId,
         state.get(action.postId).unshift(action.comment.id)
@@ -97,9 +97,9 @@ const byPost = (state = Immutable.fromJS({}), action) => {
 
 const byId = (state = Immutable.fromJS({}), action) => {
   switch (action.type) {
-    case types.FETCH_REMARKS:
+    case types.FETCH_COMMENTS:
       return state.merge(action.comments);
-    case types.CREATE_REMARK:
+    case types.CREATE_COMMENT:
       return state.merge({ [action.comment.id]: action.comment });
     default:
       return state;
