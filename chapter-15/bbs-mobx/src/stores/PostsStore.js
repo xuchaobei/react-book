@@ -80,6 +80,8 @@ class PostsStore {
         if (!data.error) {
           const oldPost = this.getPost(id);
           if (oldPost) {
+            /* 更新帖子的API，返回数据中的author只包含authorId，
+               因此需要从更新前的帖子中获取完整的author数据 */
             data.author = toJS(oldPost.author);
             oldPost.updateFromJS(data);
           } 
