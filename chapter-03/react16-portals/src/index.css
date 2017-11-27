@@ -1,0 +1,26 @@
+.modal {
+  box-sizing: border-box;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 260px;
+  height: 200px;
+  margin-left: -130px;
+  margin-top: -100px;
+  padding: 10px;
+  background-color: #fff;
+  outline: 9999px solid rgba(0, 0, 0, 0.5);
+}
+
+.modal .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: red;
+  cursor: pointer;
+}
+
+.modal .content {
+  margin-top: 15px; 
+  text-align: center;
+}
