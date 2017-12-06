@@ -36,6 +36,7 @@ class App extends Component {
         </Router>
         {errorDialog}
         {isLoading && <Loading />}
+        {/* 添加MobX调试组件 */}
         {this.renderDevTool()}
       </div>
     );

@@ -20,9 +20,9 @@ class PostModel {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
-
-  @action
-  updateFromJS(json) {
+  
+  // 根据JSON对象更新帖子
+  @action updateFromJS(json) {
     this.title = json.title;
     this.content = json.content;
     this.vote = json.vote;
@@ -31,6 +31,7 @@ class PostModel {
     this.updatedAt = json.updatedAt;
   }
 
+  // 静态方法，创建新的PostModel实例
   static fromJS(store, object) {
     return new PostModel(
       store,

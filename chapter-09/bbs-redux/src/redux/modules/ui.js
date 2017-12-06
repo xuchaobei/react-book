@@ -7,23 +7,27 @@ const initialState = {
 
 // action types
 export const types = {
-  OPEN_ADD_DIALOG: "UI/OPEN_ADD_DIALOG",
-  CLOSE_ADD_DIALOG: "UI/CLOSE_ADD_DIALOG",
-  OPEN_EDIT_DIALOG: "UI/OPEN_EDIT_DIALOG",
-  CLOSE_EDIT_DIALOG: "UI/CLOSE_EDIT_DIALOG"
+  OPEN_ADD_DIALOG: "UI/OPEN_ADD_DIALOG",    // 打开新建帖子状态
+  CLOSE_ADD_DIALOG: "UI/CLOSE_ADD_DIALOG",  // 关闭新建帖子状态
+  OPEN_EDIT_DIALOG: "UI/OPEN_EDIT_DIALOG",  // 打开编辑帖子状态
+  CLOSE_EDIT_DIALOG: "UI/CLOSE_EDIT_DIALOG" // 关闭编辑帖子状态
 };
 
 // action creators
 export const actions = {
+  // 打开新建帖子的编辑框
   openAddDialog: () => ({
     type: types.OPEN_ADD_DIALOG
   }),
+  // 关闭新建帖子的编辑框
   closeAddDialog: () => ({
     type: types.CLOSE_ADD_DIALOG
   }),
+  // 打开编辑帖子的编辑框
   openEditDialog: () => ({
     type: types.OPEN_EDIT_DIALOG
   }),
+  // 关闭编辑帖子的编辑框
   closeEditDialog: () => ({
     type: types.CLOSE_EDIT_DIALOG
   })

@@ -5,7 +5,7 @@ class PostsStore {
   api;
   appStore;
   authStore;
-  @observable posts = [];
+  @observable posts = [];  // 数组的元素是PostModel的实例
 
   constructor(api, appStore, authStore) {
     this.api = api;
@@ -13,10 +13,12 @@ class PostsStore {
     this.authStore = authStore;
   }
 
+  // 根据帖子id，获取当前store中的帖子
   getPost(id) {
     return this.posts.find(item => item.id === id);
   }
 
+  // 从服务器获取帖子列表
   @action fetchPostList() {
     this.appStore.increaseRequest();
     return this.api.getPostList().then(
@@ -34,6 +36,7 @@ class PostsStore {
     );
   }
 
+  // 从服务器获取帖子详情
   @action fetchPostDetail(id) {
     this.appStore.increaseRequest();
     return this.api.getPostById(id).then(
@@ -41,6 +44,7 @@ class PostsStore {
         this.appStore.decreaseRequest();
         if (!data.error && data.length === 1) {
           const post = this.getPost(id);
+          // 如果store中当前post已存在，更新post；否则，添加post到store
           if (post) {
             post.updateFromJS(data[0]);
           } else {
@@ -54,7 +58,8 @@ class PostsStore {
       })
     );
   }
-
+  
+  // 新建帖子
   @action createPost(post) {
     const content = { ...post, author: this.authStore.userId, vote: 0 };
     this.appStore.increaseRequest();
@@ -72,6 +77,7 @@ class PostsStore {
     );
   }
 
+  // 更新帖子
   @action updatePost(id, post) {
     this.appStore.increaseRequest();
     return this.api.updatePost(id, post).then(
@@ -81,7 +87,7 @@ class PostsStore {
           const oldPost = this.getPost(id);
           if (oldPost) {
             /* 更新帖子的API，返回数据中的author只包含authorId，
-               因此需要从更新前的帖子中获取完整的author数据 */
+               因此需要从原来的post对象中获取完整的author数据 */
             data.author = toJS(oldPost.author);
             oldPost.updateFromJS(data);
           } 

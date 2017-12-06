@@ -16,6 +16,7 @@ export const types = {
 
 // action creators
 export const actions = {
+  // 获取评论列表
   fetchComments: postId => {
     return (dispatch, getState) => {
       if (shouldFetchComments(postId, getState())) {
@@ -32,6 +33,7 @@ export const actions = {
       }
     };
   },
+  // 新建评论
   createComment: comment => {
     return dispatch => {
       dispatch(appActions.startRequest());
@@ -47,6 +49,7 @@ export const actions = {
   }
 };
 
+// 获取评论列表成功的回调
 const fetchCommentsSuccess = (postId, commentIds, comments, users) => ({
   type: types.FETCH_COMMENTS,
   postId,
@@ -55,6 +58,7 @@ const fetchCommentsSuccess = (postId, commentIds, comments, users) => ({
   users
 });
 
+// 新建评论成功的回调
 const createCommentSuccess = (postId, comment) => ({
   type: types.CREATE_COMMENT,
   postId,

@@ -10,12 +10,13 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      redirectToReferrer: false
+      redirectToReferrer: false   // 是否重定向到之前的页面
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // 处理用户名、密码的变化
   handleChange(e) {
     if (e.target.name === "username") {
       this.setState({
@@ -30,6 +31,7 @@ class Login extends Component {
     }
   }
 
+  // 提交登录表单
   handleSubmit(e) {
     e.preventDefault();
     const username = this.state.username;
@@ -56,6 +58,7 @@ class Login extends Component {
   }
 
   render() {
+    // from 等于跳转到登录页前的页面路径，用于在登录成功后重新跳转到原来页面
     const { from } = this.props.location.state || { from: { pathname: "/" } };
     const { redirectToReferrer } = this.state;
     if (redirectToReferrer) {

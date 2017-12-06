@@ -11,17 +11,20 @@ import "./style.css";
 
 class PostList extends Component {
   componentDidMount() {
-    this.props.fetchAllPosts();
+    this.props.fetchAllPosts();  // 获取帖子列表
   }
 
+  // 保存帖子
   handleSave = data => {
     this.props.createPost(data.title, data.content);
   };
 
+  // 取消新建帖子
   handleCancel = () => {
     this.props.closeAddDialog();
   };
 
+  // 新建帖子
   handleNewPost = () => {
     this.props.openAddDialog();
   };

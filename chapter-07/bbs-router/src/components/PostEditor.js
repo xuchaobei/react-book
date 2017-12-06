@@ -14,6 +14,7 @@ class PostEditor extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  // 处理帖子的编辑信息
   handleChange(e) {
     const name = e.target.name;
     if (name === "title") {
@@ -27,11 +28,13 @@ class PostEditor extends Component {
     } else {
     }
   }
-
+  
+  // 取消帖子的编辑
   handleCancelClick() {
     this.props.onCancel();
   }
-
+  
+  // 保存帖子
   handleSaveClick() {
     let data = {
       title: this.state.title,

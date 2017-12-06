@@ -22,7 +22,8 @@ class PostList extends Component {
   componentDidMount() {
     this.refreshPostList();
   }
-
+  
+  // 获取帖子列表
   refreshPostList() {
     get(url.getPostList()).then(data => {
       if (!data.error) {
@@ -33,7 +34,8 @@ class PostList extends Component {
       }
     });
   }
-
+  
+  // 保存帖子
   handleSave(data) {
     const post = { ...data, author: this.props.userId, vote: 0 };
     post(url.createPost(), post).then(data => {
@@ -42,13 +44,15 @@ class PostList extends Component {
       }
     });
   }
-
+  
+  // 取消新建帖子
   handleCancel() {
     this.setState({
       newPost: false
     });
   }
-
+  
+  // 新建帖子
   handleNewPost() {
     this.setState({
       newPost: true

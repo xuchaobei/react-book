@@ -13,12 +13,14 @@ class CommentList extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  // 处理新评论内容的变化
   handleChange(e) {
     this.setState({
       value: e.target.value
     });
   }
-
+ 
+  // 保存新评论 
   handleClick(e) {
     const content = this.state.value;
     if (content.length > 0) {

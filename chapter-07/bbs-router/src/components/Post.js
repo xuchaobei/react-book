@@ -27,6 +27,7 @@ class Post extends Component {
     this.refreshPost();
   }
 
+  // 获取帖子详情
   refreshPost() {
     const postId = this.props.match.params.id;
     get(url.getPostById(postId)).then(data => {
@@ -38,6 +39,7 @@ class Post extends Component {
     });
   }
 
+  // 获取评论列表
   refreshComments() {
     const postId = this.props.match.params.id;
     get(url.getCommentList(postId)).then(data => {
@@ -48,24 +50,28 @@ class Post extends Component {
       }
     });
   }
-
+  
+  // 让帖子处于编辑态
   handleEditClick() {
     this.setState({
       editing: true
     });
   }
 
+  // 保存帖子
   handlePostSave(data) {
     const id = this.props.match.params.id;
     this.savePost(id, data);
   }
 
+  // 取消编辑帖子
   handlePostCancel() {
     this.setState({
       editing: false
     });
   }
-
+  
+  // 提交新建的评论
   handleCommentSubmit(content) {
     const postId = this.props.match.params.id;
     const comment = {
@@ -76,6 +82,7 @@ class Post extends Component {
     this.saveComment(comment);
   }
 
+  // 保存新的评论到服务器
   saveComment(comment) {
     post(url.createComment(), comment).then(data => {
       if (!data.error) {
@@ -84,6 +91,7 @@ class Post extends Component {
     });
   }
 
+  // 同步帖子的修改到服务器
   savePost(id, post) {
     put(url.updatePost(id), post).then(data => {
       if (!data.error) {

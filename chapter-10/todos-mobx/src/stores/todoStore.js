@@ -9,7 +9,6 @@ class TodoStore {
  
   @action addTodo(data) {
     this.todos.push(new Todo(data));
-    // this.todos.push({id: });
   }
 }
 
