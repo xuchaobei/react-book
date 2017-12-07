@@ -1,9 +1,0 @@
-{
-  "id": 3,
-  "title": "Web App的时代已经到来",
-  "author": "王五",
-  "date": "2017-09-01 14:00",
-  "vote": 10,
-  "content": "随着PWA等技术的到来，在Native App和Hybrid App之外，有多了一个选择：Web App。不少激进的开发者已经预言，Web App将战胜Native App和Hybrid App，Web App的时代已经到来！",
-  "comments": []
-}
