@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import PostsView from "./PostsView";
 import PostEditor from "./PostEditor";
-import { get, post } from "../utils/request";
+import { get } from "../utils/request";
 import url from "../utils/url";
 import "./PostList.css";
 

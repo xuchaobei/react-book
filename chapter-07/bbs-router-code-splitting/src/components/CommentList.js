@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import CommentsView from "./CommentsView";
-import { getFormatDate } from "../utils/date";
 import "./CommentList.css";
 
 class CommentList extends Component {
