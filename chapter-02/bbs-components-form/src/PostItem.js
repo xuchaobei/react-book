@@ -6,7 +6,7 @@ class PostItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editing: false,
+      editing: false,    // 帖子是否处于编辑态
       post: props.post
     };
     this.handleVote = this.handleVote.bind(this);
@@ -15,6 +15,7 @@ class PostItem extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // 父组件更新post后，更新PostItem的state
     if (this.props !== nextProps.props) {
       this.setState({
         post: nextProps.post
@@ -22,12 +23,15 @@ class PostItem extends Component {
     }
   }
 
+  // 处理点赞事件
   handleVote() {
     this.props.onVote(this.props.post.id);
   }
 
+  // 保存/编辑按钮点击后的逻辑
   handleEditPost() {
     const editing = this.state.editing;
+    // 当前处于编辑态，调用父组件传递的onSave方法保存帖子
     if (editing) {
       this.props.onSave({
         ...this.state.post,
@@ -39,13 +43,15 @@ class PostItem extends Component {
     });
   }
 
+  // 处理标题textarea值的变化
   handleTitleChange(event) {
     const newPost = { ...this.state.post, title: event.target.value };
     this.setState({
       post: newPost
     });
   }
-
+  
+  // 显示日期格式化
   getFormatDate() {
     const date = new Date();
     const year = date.getFullYear();

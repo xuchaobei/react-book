@@ -10,7 +10,7 @@ class PostList extends Component {
   render() {
     return (
       <div>
-        话题列表：
+        帖子列表：
         <ul>
           {data.map(item =>
             <PostItem

@@ -43,7 +43,7 @@ class PostList extends Component {
   render() {
     return (
       <div>
-        话题列表：
+        帖子列表：
         <ul>
           {this.state.posts.map(item =>
             <PostItem

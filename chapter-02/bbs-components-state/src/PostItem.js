@@ -8,6 +8,7 @@ class PostItem extends Component {
     };
   }
 
+  // 处理点赞逻辑
   handleClick() {
     let vote = this.state.vote;
     vote++;

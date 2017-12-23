@@ -12,9 +12,9 @@ class PostList extends Component {
   }
 
   componentDidMount() {
-    const that = this;
-    setTimeout(function() {
-      that.setState({
+    // 用setTimeout模拟异步从服务器端获取数据
+    this.timer = setTimeout(() => {
+      this.setState({
         posts: [
           { id: 1, title: "大家一起来讨论React吧", author: "张三", date: "2017-09-01 10:00", vote: 0 },
           { id: 2, title: "前端框架，你最爱哪一个", author: "李四", date: "2017-09-01 12:00", vote: 0 },
@@ -31,6 +31,7 @@ class PostList extends Component {
   }
 
   handleVote(id) {
+    //根据帖子id进行过滤，找到待修改vote属性的帖子，返回新的posts对象
     const posts = this.state.posts.map(item => {
       const newItem = item.id === id ? {...item, vote: ++item.vote} : item;
       return newItem;
@@ -43,7 +44,7 @@ class PostList extends Component {
   render() {
     return (
       <div>
-        话题列表：
+        帖子列表：
         <ul>
           {this.state.posts.map(item =>
             <PostItem
