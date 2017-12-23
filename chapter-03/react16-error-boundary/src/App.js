@@ -9,7 +9,9 @@ class ErrorBoundary extends Component {
   }
 
   componentDidCatch(err, info) {
+    // 显示错误UI
     this.setState({ hasError: true });
+    // 同时输出错误日志
     console.log(err, info);
   }
 
@@ -24,12 +26,12 @@ class ErrorBoundary extends Component {
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       user: { name: "react" }
     };
   }
 
+  // 将user置为null，模拟异常
   onClick = () => {
     this.setState({ user: null });
   };
