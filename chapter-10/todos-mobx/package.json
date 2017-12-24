@@ -6,8 +6,8 @@
     "custom-react-scripts": "0.2.1",
     "mobx": "^3.3.1",
     "mobx-react": "^4.3.4",
-    "react": "^16.1.0",
-    "react-dom": "^16.1.0"
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

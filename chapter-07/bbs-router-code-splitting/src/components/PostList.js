@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PostsView from "./PostsView";
 import PostEditor from "./PostEditor";
-import { get } from "../utils/request";
+import { get, post } from "../utils/request";
 import url from "../utils/url";
 import "./PostList.css";
 
@@ -34,8 +34,8 @@ class PostList extends Component {
   }
 
   handleSave(data) {
-    const post = { ...data, author: this.props.userId, vote: 0 };
-    post(url.createPost(), post).then(data => {
+    const postData = { ...data, author: this.props.userId, vote: 0 };
+    post(url.createPost(), postData).then(data => {
       if (!data.error) {
         this.refreshPostList();
       }

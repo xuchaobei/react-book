@@ -48,8 +48,10 @@ class Login extends Component {
       if (data.error) {
         alert(data.error.message || "login failed");
       } else {
+        // 保存登录信息到sessionStorage
         sessionStorage.setItem("userId", data.userId);
         sessionStorage.setItem("username", username);
+        // 登录成功后，设置redirectToReferrer为true
         this.setState({
           redirectToReferrer: true
         });
@@ -58,9 +60,10 @@ class Login extends Component {
   }
 
   render() {
-    // from 等于跳转到登录页前的页面路径，用于在登录成功后重新跳转到原来页面
+    // from 保存跳转到登录页前的页面路径，用于在登录成功后重定向到原来页面
     const { from } = this.props.location.state || { from: { pathname: "/" } };
     const { redirectToReferrer } = this.state;
+    // 登录成功后，redirectToReferrer为true，使用Redirect组件重定向页面
     if (redirectToReferrer) {
       return <Redirect to={from} />;
     }

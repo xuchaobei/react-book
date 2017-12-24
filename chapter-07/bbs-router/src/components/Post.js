@@ -50,7 +50,7 @@ class Post extends Component {
       }
     });
   }
-  
+
   // 让帖子处于编辑态
   handleEditClick() {
     this.setState({
@@ -70,7 +70,7 @@ class Post extends Component {
       editing: false
     });
   }
-  
+
   // 提交新建的评论
   handleCommentSubmit(content) {
     const postId = this.props.match.params.id;
@@ -95,6 +95,8 @@ class Post extends Component {
   savePost(id, post) {
     put(url.updatePost(id), post).then(data => {
       if (!data.error) {
+        /* 因为返回的帖子对象只有author的id信息，
+         * 所有需要额外把完整的author信息合并到帖子对象中 */
         const newPost = { ...data, author: this.state.post.author };
         this.setState({
           post: newPost,

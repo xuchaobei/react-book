@@ -1,14 +1,14 @@
 {
-  "name": "todos",
+  "name": "bbs-redux-reselect",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "immutable": "^3.8.2",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14",
+    "react-scripts": "1.0.17",
     "redux": "^3.7.2",
     "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.2.0",

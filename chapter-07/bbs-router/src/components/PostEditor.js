@@ -40,6 +40,7 @@ class PostEditor extends Component {
       title: this.state.title,
       content: this.state.content
     };
+    // 调用父组件的回调函数执行真正的保存逻辑
     this.props.onSave(data);
   }
 

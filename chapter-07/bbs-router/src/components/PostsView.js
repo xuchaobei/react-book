@@ -8,6 +8,7 @@ class PostsView extends Component {
     return (
       <ul>
         {posts.map(item => (
+          // 使用Link组件包裹每一个PostItem
           <Link key={item.id} to={`/posts/${item.id}`}>
             <PostItem post={item} />
           </Link>
