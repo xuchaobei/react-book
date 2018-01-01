@@ -10,14 +10,15 @@ const initialState = {
 
 // action types
 export const types = {
-  CREATE_POST: "POSTS/CREATE_POST",
-  UPDATE_POST: "POSTS/UPDATE_POST",
-  FETCH_ALL_POSTS: "POSTS/FETCH_ALL_POSTS",
-  FETCH_POST: "POSTS/FETCH_POST"
+  CREATE_POST: "POSTS/CREATE_POST",         //新建帖子
+  UPDATE_POST: "POSTS/UPDATE_POST",         //修改帖子
+  FETCH_ALL_POSTS: "POSTS/FETCH_ALL_POSTS", //获取帖子列表
+  FETCH_POST: "POSTS/FETCH_POST"            //获取帖子详情
 };
 
 // action creators
 export const actions = {
+  // 获取帖子列表
   fetchAllPosts: () => {
     return (dispatch, getState) => {
       if (shouldFetchAllPosts(getState())) {
@@ -34,6 +35,7 @@ export const actions = {
       }
     };
   },
+  // 获取帖子详情
   fetchPost: id => {
     return (dispatch, getState) => {
       if (shouldFetchPost(id, getState())) {
@@ -50,6 +52,7 @@ export const actions = {
       }
     };
   },
+  // 新建帖子
   createPost: (title, content) => {
     return (dispatch, getState) => {
       const state = getState();
@@ -71,6 +74,7 @@ export const actions = {
       });
     };
   },
+  // 更新帖子
   updatePost: (id, post) => {
     return dispatch => {
       dispatch(appActions.startRequest());
@@ -86,6 +90,7 @@ export const actions = {
   }
 };
 
+// 获取帖子列表成功
 const fetchAllPostsSuccess = (posts, postIds, authors) => ({
   type: types.FETCH_ALL_POSTS,
   posts,
@@ -93,17 +98,20 @@ const fetchAllPostsSuccess = (posts, postIds, authors) => ({
   users: authors
 });
 
+// 获取帖子详情成功
 const fetchPostSuccess = (post, author) => ({
   type: types.FETCH_POST,
   post,
   user: author
 });
 
+// 新建帖子成功
 const createPostSuccess = post => ({
   type: types.CREATE_POST,
   post: post
 });
 
+// 更新帖子成功
 const updatePostSuccess = post => ({
   type: types.UPDATE_POST,
   post: post
