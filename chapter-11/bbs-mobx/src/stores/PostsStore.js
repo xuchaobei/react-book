@@ -87,7 +87,8 @@ class PostsStore {
           const oldPost = this.getPost(id);
           if (oldPost) {
             /* 更新帖子的API，返回数据中的author只包含authorId，
-               因此需要从原来的post对象中获取完整的author数据 */
+               因此需要从原来的post对象中获取完整的author数据。
+               toJS是MobX提供的函数，用于把可观测对象转换成普通的JS对象。 */
             data.author = toJS(oldPost.author);
             oldPost.updateFromJS(data);
           } 

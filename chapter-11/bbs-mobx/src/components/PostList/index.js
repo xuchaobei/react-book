@@ -8,19 +8,23 @@ import "./style.css";
 @observer
 class PostList extends Component {
   componentDidMount() {
+    // 获取帖子列表
     this.props.postsStore.fetchPostList();
   }
 
+  // 保存新建的帖子
   handleSave = data => {
     this.props.postsStore
       .createPost(data)
       .then(() => this.props.uiStore.setAddDialogStatus(false));
   };
 
+  // 取消新建帖子的状态
   handleCancel = () => {
     this.props.uiStore.setAddDialogStatus(false);
   };
 
+  // 设置新建帖子的状态
   handleNewPost = () => {
     this.props.uiStore.setAddDialogStatus(true);
   };
