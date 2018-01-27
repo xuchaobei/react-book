@@ -16,7 +16,7 @@ class PostItem extends Component {
 
   componentWillReceiveProps(nextProps) {
     // 父组件更新post后，更新PostItem的state
-    if (this.props !== nextProps.props) {
+    if (this.props.post !== nextProps.post) {
       this.setState({
         post: nextProps.post
       });
