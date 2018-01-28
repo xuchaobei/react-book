@@ -36,7 +36,7 @@ class PostEditor extends Component {
   
   // 保存帖子
   handleSaveClick() {
-    let data = {
+    const data = {
       title: this.state.title,
       content: this.state.content
     };

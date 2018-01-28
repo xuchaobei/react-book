@@ -33,7 +33,7 @@ class PostEditor extends Component {
   }
 
   handleSaveClick() {
-    let data = {
+    const data = {
       title: this.state.title,
       content: this.state.content
     };
