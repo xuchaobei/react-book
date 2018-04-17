@@ -2,13 +2,9 @@
 《React进阶之路》示例代码
 
 
-### 广告
+### 补充内容
 
-微信订阅号：老干部的大前端。
+我的微信订阅号：老干部的大前端，有一个「react深入系列」，可以作为本书的补充知识学习。
 
-分享关于大前端的各种干货：前端、移动端、Node.js、以及等等。
-
-欢迎大家关注！
-
-![qrcode](https://github.com/xuchaobei/react-book/blob/master/qrcode.jpg)
+![二维码](https://github.com/xuchaobei/react-book/blob/master/qrcode.jpg)
 
