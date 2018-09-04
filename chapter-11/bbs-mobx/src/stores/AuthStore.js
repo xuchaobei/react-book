@@ -38,9 +38,9 @@ class AuthStore {
   }
 
   @action.bound logout() {
-    this.userId = null;
-    this.username = null;
-    this.password = null;
+    this.userId = undefined;
+    this.username = 'jack';
+    this.password = '123456';
     sessionStorage.removeItem("userId");
     sessionStorage.removeItem("username");
   }
