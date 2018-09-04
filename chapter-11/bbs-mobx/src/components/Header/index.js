@@ -14,7 +14,7 @@ class Header extends Component {
           <span className="left-link">
             <Link to="/">首页</Link>
           </span>
-          {authStore.username && authStore.username.length > 0 ? (
+          {authStore.userId && authStore.userId.length > 0 ? (
             <span className="user">
               当前用户：{authStore.username}&nbsp;<button onClick={authStore.logout}>
                 注销
